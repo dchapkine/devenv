@@ -90,8 +90,15 @@ elif [ "$1" = "install" ]; then
 # Start a service
 elif [ "$1" = "start" ]; then
   if [[ -n $2 ]]; then
-    echo "starting $2"
-    service_start $2
+    if [ "$2" = "all" ]; then
+      for svc in ${AVAILABLE_SERVICES[@]}; do
+        echo "starting $svc"
+        service_start $svc
+      done
+    else
+      echo "starting $2"
+      service_start $2
+    fi
   else
     echo "USAGE: \"$0 start SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
@@ -102,8 +109,15 @@ elif [ "$1" = "start" ]; then
 # Stop service
 elif [ "$1" = "stop" ]; then
   if [[ -n $2 ]]; then
-    echo "stopping $2"
-    service_stop $2
+    if [ "$2" = "all" ]; then
+      for svc in ${AVAILABLE_SERVICES[@]}; do
+        echo "stopping $svc"
+        service_stop $svc
+      done
+    else
+      echo "stopping $2"
+      service_stop $2
+    fi
   else
     echo "USAGE: \"$0 stop SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
