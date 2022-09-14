@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
+SCRIPT_NAME=devenv
 
 # services list
 AVAILABLE_SERVICES=("mongodb5" "mysql8" "redis7" "neo4j4ce")
@@ -26,9 +26,9 @@ service_check () {
     echo "+ $1 is running"
     service_usage $1
   elif is_installed $1; then
-    echo "+ $1 is installed, use \"$0 start $1\""
+    echo "+ $1 is installed, use \"$SCRIPT_NAME start $1\""
   else
-    echo "+ $1 not installed, use \"$0 install $1\""
+    echo "+ $1 not installed, use \"$SCRIPT_NAME install $1\""
   fi
 }
 
@@ -87,11 +87,11 @@ elif [ "$1" = "install" ]; then
       service_install $2
     fi
   else
-    echo "USAGE: \"$0 install SERVICE_NAME\""
+    echo "USAGE: \"$SCRIPT_NAME install SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
-      echo "$0 install $svc"
+      echo "$SCRIPT_NAME install $svc"
     done
-    echo "$0 install all #will install all services"
+    echo "$SCRIPT_NAME install all #will install all services"
   fi
 
 # Start a service
@@ -107,9 +107,9 @@ elif [ "$1" = "start" ]; then
       service_start $2
     fi
   else
-    echo "USAGE: \"$0 start SERVICE_NAME\""
+    echo "USAGE: \"$SCRIPT_NAME start SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
-      echo "$0 start $svc"
+      echo "$SCRIPT_NAME start $svc"
     done
   fi
 
@@ -126,9 +126,9 @@ elif [ "$1" = "stop" ]; then
       service_stop $2
     fi
   else
-    echo "USAGE: \"$0 stop SERVICE_NAME\""
+    echo "USAGE: \"$SCRIPT_NAME stop SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
-      echo "$0 stop $svc"
+      echo "$SCRIPT_NAME stop $svc"
     done
   fi
 
@@ -138,22 +138,22 @@ elif [ "$1" = "cli" ]; then
     echo "connecting to $2 cli"
     service_connect_cli $2
   else
-    echo "USAGE: \"$0 cli SERVICE_NAME\""
+    echo "USAGE: \"$SCRIPT_NAME cli SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
-      echo "$0 cli $svc"
+      echo "$SCRIPT_NAME cli $svc"
     done
   fi
 
 # Usage
 else
   echo ""
-  echo "USAGE $0"
+  echo "USAGE $SCRIPT_NAME"
   echo "==="
-  echo "$0 install PACKAGE_NAME|all # installs package"
-  echo "$0 start PACKAGE_NAME|all # starts package service"
-  echo "$0 stop PACKAGE_NAME|all # stops package service"
-  echo "$0 selfupdate # pulls latest version of this script from git"
-  echo "$0 selfinstall # adds script path to session PATH (you need to source ~/.bashrc after that)"
+  echo "$SCRIPT_NAME install PACKAGE_NAME|all # installs package"
+  echo "$SCRIPT_NAME start PACKAGE_NAME|all # starts package service"
+  echo "$SCRIPT_NAME stop PACKAGE_NAME|all # stops package service"
+  echo "$SCRIPT_NAME selfupdate # pulls latest version of this script from git"
+  echo "./$SCRIPT_NAME selfinstall # adds script path to session PATH (you need to source ~/.bashrc after that)"
   echo ""
   echo "PACKAGES:"
   echo "==="
