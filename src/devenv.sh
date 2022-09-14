@@ -36,6 +36,11 @@ service_usage () {
   return 0
 }
 
+service_connect_cli () {
+  . "$SCRIPT_DIR/packages/$1_cli.sh"
+  return 0
+}
+
 service_start () {
   docker start $1
   service_usage $1
@@ -103,6 +108,18 @@ elif [ "$1" = "stop" ]; then
     echo "USAGE: \"$0 stop SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
       echo "$0 stop $svc"
+    done
+  fi
+
+# Connect to a service (cli)
+elif [ "$1" = "cli" ]; then
+  if [[ -n $2 ]]; then
+    echo "connecting to $2 cli"
+    service_connect_cli $2
+  else
+    echo "USAGE: \"$0 cli SERVICE_NAME\""
+    for svc in ${AVAILABLE_SERVICES[@]}; do
+      echo "$0 cli $svc"
     done
   fi
 
