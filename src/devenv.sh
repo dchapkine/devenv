@@ -1,14 +1,18 @@
 #!/bin/bash
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+PACKAGE_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/../packages" &> /dev/null && pwd )
 SCRIPT_NAME=devenv
 
 # services list
-AVAILABLE_SERVICES=("mongodb5" "mysql8" "redis7" "neo4j4ce")
+AVAILABLE_SERVICES=()
+for DIR in $PACKAGE_DIR/*; do
+  AVAILABLE_SERVICES+=("$(basename $DIR)")
+done
 
 # include package vars
-for FILE in $SCRIPT_DIR/packages/*_vars.sh; do
-  . $FILE
+for DIR in $PACKAGE_DIR/*; do
+  . "$DIR/vars.sh"
 done
 
 is_installed () {
@@ -33,12 +37,12 @@ service_check () {
 }
 
 service_usage () {
-  . "$SCRIPT_DIR/packages/$1_usage.sh"
+  . "$PACKAGE_DIR/$1/usage.sh"
   return 0
 }
 
 service_connect_cli () {
-  . "$SCRIPT_DIR/packages/$1_cli.sh"
+  . "$PACKAGE_DIR/$1/cli.sh"
   return 0
 }
 
@@ -58,7 +62,7 @@ service_install () {
     echo "+ $1 is installed"
   else
     echo "installing $1"
-    . "$SCRIPT_DIR/packages/$1_install.sh"
+    . "$PACKAGE_DIR/$1/install.sh"
     service_usage $1
   fi
   return 0
