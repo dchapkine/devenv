@@ -2,6 +2,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+
 # services list
 AVAILABLE_SERVICES=("mongodb5" "mysql8" "redis7" "neo4j4ce")
 
@@ -68,6 +69,12 @@ if [ "$1" = "selfupdate" ]; then
   cd $SCRIPT_DIR
   cd ..
   git pull
+
+elif [ "$1" = "selfinstall" ]; then
+  echo "" >> ~/.bashrc
+  echo "# devenv installation:" >> ~/.bashrc
+  echo "alias devenv=$SCRIPT_DIR/devenv.sh" >> ~/.bashrc
+  echo "" >> ~/.bashrc
 
 # Install service
 elif [ "$1" = "install" ]; then
@@ -140,11 +147,18 @@ elif [ "$1" = "cli" ]; then
 # Usage
 else
   echo ""
-  echo "$0"
+  echo "USAGE $0"
+  echo "==="
+  echo "$0 install PACKAGE_NAME|all # installs package"
+  echo "$0 start PACKAGE_NAME|all # starts package service"
+  echo "$0 stop PACKAGE_NAME|all # stops package service"
+  echo "$0 selfupdate # pulls latest version of this script from git"
+  echo "$0 selfinstall # adds script path to session PATH (you need to source ~/.bashrc after that)"
   echo ""
+  echo "PACKAGES:"
+  echo "==="
   for svc in ${AVAILABLE_SERVICES[@]}; do
     service_check $svc
-    echo ""
   done
 fi
 
