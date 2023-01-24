@@ -69,7 +69,7 @@ PACKAGES:
 Works exclusively on ubuntu and bash + docker engine, not tested on anything else
 
 
-# throubleshoot Got permission denied while trying to connect to the Docker daemon socket
+# troubleshooting
 
 If you get this error trying to run devenv...
 
