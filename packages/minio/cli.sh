@@ -1,0 +1,1 @@
+docker exec -it $MINIO_NAME /bin/sh
