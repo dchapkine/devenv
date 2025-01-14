@@ -23,6 +23,16 @@ A package is missing ? Feel free to contribute, it's only few lines of bash
 
 HF
 
+# supported packages
+
+- dynamodb // local dynamodb for testing
+- minio // local s3 compatible storage for testing
+- mongodb5 // mongodb:5
+- mysql8 // mysql:8
+- neo4j4ce // neo4j:4 community edition
+- postgres14 // postgresql:14
+- redis7 // redis:7
+
 
 # install
 
@@ -48,19 +58,29 @@ devenv selfupdate # pulls latest version of this script from git
 
 PACKAGES:
 ===
++ dynamodb is running
+  connect to dynamodb http://localhost:55009
+  connect to dynamodb cli using docker exec -it dynamodb /bin/bash
++ minio is running
+  connect to minio gui http://localhost:55008
+  connect to minio api http://localhost:55007
+  connect to minio api using docker exec -it minio /bin/sh
 + mongodb5 is running
   connect to mongodb5 using localhost:55001
   connect to mongodb cli using docker exec -it mongodb5 mongo
 + mysql8 is running
   connect to mysql8 using localhost:55002
   connect to mysql8 cli using docker exec -it mysql8 mysql -uroot -proot
-+ redis7 is running
-  connect to redis7 using localhost:55003
-  connect to redis7 cli using docker exec -it redis7 redis-cli -h 127.0.0.1
 + neo4j4ce is running
   connect to neo4j4ce using localhost:55004 for http and localhost:55004 for bolt
   connect to neo4j4ce cli using docker exec -it neo4j4ce cypher-shell -u neo4j -p admin
   access neo4j browser here: http://localhost:55004
++ postgres14 is running
+  connect to postgres14 using localhost:55006
+  connect to postgres14 cli using docker exec -it postgres14 psql -upostgres -ppostgres
++ redis7 is running
+  connect to redis7 using localhost:55003
+  connect to redis7 cli using docker exec -it redis7 redis-cli -h 127.0.0.1
 
 ```
 
