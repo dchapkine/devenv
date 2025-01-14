@@ -1,5 +1,5 @@
 
-# mongodb 5
+# minio
 MINIO_NAME=minio
 MINIO_PORT_API=55007
 MINIO_PORT_GUI=55008

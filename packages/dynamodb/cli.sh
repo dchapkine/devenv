@@ -1,0 +1,1 @@
+docker exec -it $DYNAMODB_NAME /bin/bash

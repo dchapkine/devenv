@@ -1,0 +1,8 @@
+
+# dynamodb:latest
+DYNAMODB_NAME=dynamodb
+DYNAMODB_PORT=55009
+DYNAMODB_IMAG=amazon/dynamodb-local
+DYNAMODB_VERS=latest
+DYNAMODB_DATA=DYNAMODB_data
+DYNAMODB_CONF=DYNAMODB_conf
