@@ -9,4 +9,4 @@ docker run -d\
  -v $MINIO_DATA:/data\
  -e MINIO_ROOT_USER=$MINIO_ADMINUSER\
  -e MINIO_ROOT_PASSWORD=$MINIO_ADMINPASS\
- $MINIO_IMAG:$MINIO_VERS server /data --console-address ":9090"
+ $MINIO_IMAG:$MINIO_VERS server /data --console-address ":9090" --address ":9000"
