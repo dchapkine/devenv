@@ -46,6 +46,12 @@ service_connect_cli () {
   return 0
 }
 
+
+service_remove () {
+  . "$PACKAGE_DIR/$1/remove.sh"
+  return 0
+}
+
 service_start () {
   docker start $1
   service_usage $1
@@ -145,6 +151,18 @@ elif [ "$1" = "cli" ]; then
     echo "USAGE: \"$SCRIPT_NAME cli SERVICE_NAME\""
     for svc in ${AVAILABLE_SERVICES[@]}; do
       echo "$SCRIPT_NAME cli $svc"
+    done
+  fi
+
+# remove the service
+elif [ "$1" = "rm" ]; then
+  if [[ -n $2 ]]; then
+    echo "removing $2"
+    service_remove $2
+  else
+    echo "USAGE: \"$SCRIPT_NAME rm SERVICE_NAME\""
+    for svc in ${AVAILABLE_SERVICES[@]}; do
+      echo "$SCRIPT_NAME rm $svc"
     done
   fi
 
