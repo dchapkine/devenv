@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker stop $GITLAB18AIGATEWAY_NAME
+docker rm $GITLAB18AIGATEWAY_NAME
+docker volume rm $GITLAB18AIGATEWAY_CONF 
+docker volume rm $GITLAB18AIGATEWAY_DATA
+

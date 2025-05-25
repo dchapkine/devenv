@@ -1,1 +1,0 @@
-docker exec -it $GITLABAIGATEWAY_NAME /bin/bash
