@@ -1,0 +1,1 @@
+docker exec -it $VLLM_NAME /bin/bash
