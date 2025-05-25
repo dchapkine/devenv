@@ -1,0 +1,1 @@
+docker exec -it $GITLAB18AIGATEWAY_NAME /bin/bash

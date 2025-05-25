@@ -46,6 +46,12 @@ service_connect_cli () {
   return 0
 }
 
+
+service_remove () {
+  . "$PACKAGE_DIR/$1/remove.sh"
+  return 0
+}
+
 service_start () {
   docker start $1
   service_usage $1
@@ -82,6 +88,7 @@ elif [ "$1" = "selfinstall" ]; then
 
 # Install service
 elif [ "$1" = "install" ]; then
+  docker network create -d bridge devenvnet
   if [[ -n $2 ]]; then
     if [ "$2" = "all" ]; then
       for svc in ${AVAILABLE_SERVICES[@]}; do
@@ -148,6 +155,41 @@ elif [ "$1" = "cli" ]; then
     done
   fi
 
+# Connect to a service (ssh)
+elif [ "$1" = "ssh" ]; then
+  if [[ -n $2 ]]; then
+    echo "ssh to $2"
+    service_connect_cli $2
+  else
+    echo "USAGE: \"$SCRIPT_NAME ssh SERVICE_NAME\""
+    for svc in ${AVAILABLE_SERVICES[@]}; do
+      echo "$SCRIPT_NAME cli $svc"
+    done
+  fi
+
+# remove the service
+elif [ "$1" = "rm" ]; then
+  if [[ -n $2 ]]; then
+    echo "removing $2"
+    service_remove $2
+  else
+    echo "USAGE: \"$SCRIPT_NAME rm SERVICE_NAME\""
+    for svc in ${AVAILABLE_SERVICES[@]}; do
+      echo "$SCRIPT_NAME rm $svc"
+    done
+  fi
+
+elif [ "$1" = "remove" ]; then
+  if [[ -n $2 ]]; then
+    echo "removing $2"
+    service_remove $2
+  else
+    echo "USAGE: \"$SCRIPT_NAME rm SERVICE_NAME\""
+    for svc in ${AVAILABLE_SERVICES[@]}; do
+      echo "$SCRIPT_NAME rm $svc"
+    done
+  fi
+
 # Usage
 else
   echo ""
@@ -156,6 +198,9 @@ else
   echo "$SCRIPT_NAME install PACKAGE_NAME|all # installs package"
   echo "$SCRIPT_NAME start PACKAGE_NAME|all # starts package service"
   echo "$SCRIPT_NAME stop PACKAGE_NAME|all # stops package service"
+  echo "$SCRIPT_NAME cli PACKAGE_NAME # ssh into service container"
+  echo "$SCRIPT_NAME ssh PACKAGE_NAME # ssh into service container"
+  echo "$SCRIPT_NAME rm PACKAGE_NAME|all # removes package"
   echo "$SCRIPT_NAME selfupdate # pulls latest version of this script from git"
   echo "./$SCRIPT_NAME selfinstall # adds script path to session PATH (you need to source ~/.bashrc after that)"
   echo ""
