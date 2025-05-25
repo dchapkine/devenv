@@ -88,6 +88,7 @@ elif [ "$1" = "selfinstall" ]; then
 
 # Install service
 elif [ "$1" = "install" ]; then
+  docker network create -d bridge devenvnet
   if [[ -n $2 ]]; then
     if [ "$2" = "all" ]; then
       for svc in ${AVAILABLE_SERVICES[@]}; do
@@ -177,7 +178,7 @@ elif [ "$1" = "rm" ]; then
       echo "$SCRIPT_NAME rm $svc"
     done
   fi
-  
+
 elif [ "$1" = "remove" ]; then
   if [[ -n $2 ]]; then
     echo "removing $2"

@@ -44,6 +44,7 @@ docker run -d\
  -p $GITLAB18EE_PORT_SSH:22\
  -p $GITLAB18EE_PORT_PAGES:8080\
  --name $GITLAB18EE_NAME\
+ --network=devenvnet\
  --restart=always\
  -v $GITLAB18EE_CONF:/etc/gitlab\
  -v $GITLAB18EE_DATA:/var/opt/gitlab\
