@@ -1,0 +1,1 @@
+docker exec -it $GITLAB18EE_NAME /bin/bash

@@ -1,0 +1,8 @@
+echo "  connect to gitlab gui http://localhost:$GITLAB18EE_PORT_RAILS"
+echo "  connect to gitlab ssh http://localhost:$GITLAB18EE_PORT_SSH"
+echo "  connect to gitlab registry http://localhost:$GITLAB18EE_PORT_REGISTRY"
+echo "  connect to gitlab pages http://localhost:$GITLAB18EE_PORT_PAGES"
+echo ""
+echo "  connect to gitlab using docker exec -it $GITLAB18EE_NAME /bin/bash"
+echo "  check gitlab logs using docker logs -f $GITLAB18EE_NAME"
+echo "  warning !!! give it some time to start, check logs"

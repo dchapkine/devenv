@@ -1,1 +1,0 @@
-docker exec -it $GITLAB_NAME /bin/sh
